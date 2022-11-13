@@ -30,7 +30,7 @@ is implied by UnsafeCell<T>
 
 impl<T> Cell<T> {
     pub fn new(value: T) -> Self {
-        Cell {
+        Self {
             value: UnsafeCell::new(value),
         }
     }
