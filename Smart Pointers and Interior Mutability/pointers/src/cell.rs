@@ -16,7 +16,8 @@ pub struct Cell<T> {
     RefCell<T>, that allow internal mutability.
 
     There is no legal way to obtain aliasing &mut, not even with
-    UnsafeCell<T>.
+    UnsafeCell<T>. Thus, the only way to transmute a shared reference
+    into an exclusive one in Rust is by making use of UnsafeCell<T>.
 
     */
     value: UnsafeCell<T>,
@@ -39,6 +40,9 @@ impl<T> Cell<T> {
         The following unsafe operation assumes that we know no-one else
         is concurrently mutating self.value. This assumption is true
         because the !Sync implementation is implied by UnsafeCell<T>.
+
+        This implies Cell<T> cannot be used beyond thread boundaries,
+        thus preventing Data Races.
         */
         unsafe { *self.value.get() = value };
     }
@@ -46,6 +50,9 @@ impl<T> Cell<T> {
     /*
     We cannot move out of a reference. The return type must implement
     the Copy trait.
+
+    The idiomatic Rust way of adding bounds is to add them only where
+    they are necessary.
 
     Note: every Copy type is also required to be Clone. However, they
     are not required to do the same thing!
