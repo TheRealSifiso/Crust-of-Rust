@@ -25,14 +25,14 @@ pub struct RefCell<T> {
 }
 
 impl<T> RefCell<T> {
-    fn new(value: T) -> Self{
+    pub fn new(value: T) -> Self{
         Self{
             value: UnsafeCell::new(value),
             state: Cell::new(RefState::Unshared),
         }
     }
 
-    fn borrow(&self) -> Option<Ref<'_, T>> {
+    pub fn borrow(&self) -> Option<Ref<'_, T>> {
         match self.state.get() {
             RefState::Unshared => {
                 self.state.set(RefState::Shared(1));
@@ -45,7 +45,7 @@ impl<T> RefCell<T> {
         }
     }
 
-    fn borrow_mut(&self) -> Option <RefMut<'_, T>> {
+    pub fn borrow_mut(&self) -> Option <RefMut<'_, T>> {
         if let RefState::Unshared = self.state.get() {
             self.state.set(RefState::Exclusive);
             Some(RefMut {refcell: self})
