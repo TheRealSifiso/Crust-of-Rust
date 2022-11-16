@@ -1,6 +1,6 @@
 /*
 
-An Rc (short of Reference Counted) is a single-threaded reference-counting
+An Rc (short for Reference Counted) is a single-threaded reference-counting
 pointer.
 
 Rc<T> provides shared ownership of a value of type 'T', allocated on the
