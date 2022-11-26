@@ -198,7 +198,7 @@ to the value in RefCell<T>.
 
 impl<T> DerefMut for RefMut<'_, T> {
     /*
-    You do not need "type Target = T" because it's alreay specified in
+    You do not need "type Target = T" because it's already specified in
     the implementation of Deref.
     */
 
