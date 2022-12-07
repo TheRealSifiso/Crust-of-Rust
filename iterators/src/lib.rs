@@ -19,7 +19,9 @@ where
 {
     type Item = <O::Item as IntoIterator>::Item;
 
-    fn next(&mut self) -> Option<Self::Item> {}
+    fn next(&mut self) -> Option<Self::Item> {
+        None
+    }
 }
 
 /*
