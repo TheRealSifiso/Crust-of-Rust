@@ -1,35 +1,14 @@
-pub fn flatten<O>(iter: O) -> Flatten<O> {
-    Flatten::new(iter)
+pub fn add(left: usize, right: usize) -> usize {
+    left + right
 }
 
-pub struct Flatten<O> {
-    outer: O,
-}
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-impl<O> Flatten<O> {
-    fn new(iter: O) -> Self {
-        Self { outer: iter }
+    #[test]
+    fn it_works() {
+        let result = add(2, 2);
+        assert_eq!(result, 4);
     }
 }
-
-impl<O> Iterator for Flatten<O>
-where
-    O: Iterator,
-    O::Item: IntoIterator,
-{
-    type Item = <O::Item as IntoIterator>::Item;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        None
-    }
-}
-
-/*
-
-let iter = vec![vec![], vec![], vec![]];
-
-flatten(iter) -> Flatten<O>
-
-for item in Flatten<O> {} -> flatten the iterator
-
-*/
