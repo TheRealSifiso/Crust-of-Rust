@@ -21,7 +21,7 @@ impl<O> Iterator for Flatten<O>
     type Item = <O::Item as IntoIterator>::Item;
 
     fn next(&mut self) -> Option<Self::Item> {
-        todo!()
+        self.outer.next().and_then(|inner| inner.into_iter().next())
     }
 }
 
