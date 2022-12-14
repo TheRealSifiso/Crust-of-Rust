@@ -1,1 +1,2 @@
 mod flatten;
+mod newtype;
