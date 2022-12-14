@@ -10,7 +10,7 @@ impl<T> NewType<T> {
 }
 
 struct NewTypeIter<'a, T> {
-    inner: &'a mut NewType<T>,
+    inner: &'a NewType<T>,
     pos: usize,
 }
 
