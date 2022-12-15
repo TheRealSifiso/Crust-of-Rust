@@ -72,6 +72,8 @@ where
 #[cfg(test)]
 mod tests {
 
+    use std::vec;
+
     use super::*;
 
     #[test]
@@ -100,5 +102,15 @@ mod tests {
     #[test]
     fn two_wide() {
         assert_eq!(flatten(vec![vec!["a"], vec!["b"]].into_iter()).count(), 2);
+    }
+
+    #[test]
+    fn reverse(){
+        assert_eq!(flatten(std::iter::once(vec!["a", "b"])).rev().collect::<Vec<_>>(), vec!["b", "a"]);
+    }
+
+    #[test]
+    fn reverse_wide(){
+        assert_eq!(flatten(vec![vec!["a"], vec!["b"]].into_iter()).rev().collect::<Vec<_>>(), vec!["a", "b"]);
     }
 }
