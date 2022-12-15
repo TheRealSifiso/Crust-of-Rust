@@ -18,7 +18,7 @@ where
     // 
 
     fn next(&mut self) -> Option<Self::Item> {
-          self.outer_iter.next().and_then(|inner_collection| inner_collection.into_iter().next())
+          self.outer_iter.next()?.into_iter().next()
     }
 }
 
@@ -33,6 +33,11 @@ mod tests {
     }
 
     #[test]
+    fn empty_wide(){
+        assert_eq!(flatten(vec![Vec::<()>::new(), vec![], vec![]].into_iter()).count(), 0);
+    }
+
+    #[test]
     fn one(){
         assert_eq!(flatten(std::iter::once(vec!["a", "b", "c"])).count(), 1);
     }
@@ -43,8 +48,8 @@ mod tests {
     }
 
     #[test]
-    fn empty_wide(){
-        assert_eq!(flatten(vec![Vec::<()>::new(), vec![], vec![]].into_iter()).count(), 0);
+    fn two_wide() {
+        assert_eq!(flatten(vec![vec!["a"], vec!["b"]].into_iter()).count(), 2);
     }
 
 }
