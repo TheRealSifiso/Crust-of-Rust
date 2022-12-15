@@ -111,6 +111,18 @@ mod tests {
 
     #[test]
     fn reverse_wide(){
-        assert_eq!(flatten(vec![vec!["a"], vec!["b"]].into_iter()).rev().collect::<Vec<_>>(), vec!["a", "b"]);
+        assert_eq!(flatten(vec![vec!["a"], vec!["b"]].into_iter()).rev().collect::<Vec<_>>(), vec!["b", "a"]);
+    }
+
+    #[test]
+    fn both_ends(){
+        let mut iter = flatten(vec![vec!["a1", "a2", "a3"], vec!["b1", "b2", "b3"]].into_iter());
+
+        assert_eq!(iter.next(), Some("a1"));
+        assert_eq!(iter.next_back(), Some("b3"));
+        assert_eq!(iter.next(), Some("a2"));
+        assert_eq!(iter.next_back(), Some("b2"));
+        assert_eq!(iter.next(), Some("a3"));
+        assert_eq!(iter.next_back(), Some("b1"));
     }
 }
