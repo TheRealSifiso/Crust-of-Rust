@@ -1,0 +1,1 @@
+Implementing flatten() as I go over Jon Gjengset's iterators tutorial!
