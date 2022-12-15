@@ -63,17 +63,17 @@ where
             //Check if forward_inner_iter exists
             if let Some(ref mut backward_inner_iter) = self.backward_iter {
                 //Check if there are any items to be yielded by the forward_inner_iter
-                if let Some(item) = backward_inner_iter.next() {
+                if let Some(item) = backward_inner_iter.next_back() {
                     return Some(item);
                 }
 
                 self.backward_iter = None;
             }
 
-            if let Some(inner_collection) = self.outer_iter.next() {
+            if let Some(inner_collection) = self.outer_iter.next_back() {
                 self.backward_iter = Some(inner_collection.into_iter());
             } else {
-                return self.forward_iter.as_mut()?.next();
+                return self.forward_iter.as_mut()?.next_back();
             }
         }
     }
