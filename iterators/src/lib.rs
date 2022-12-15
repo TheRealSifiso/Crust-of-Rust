@@ -21,3 +21,30 @@ where
           self.outer_iter.next().and_then(|inner_collection| inner_collection.into_iter().next())
     }
 }
+
+#[cfg(test)]
+mod tests {
+
+    use super::*;
+
+    #[test]
+    fn empty(){
+        assert_eq!(flatten(std::iter::empty::<Vec<()>>()).count(), 0);
+    }
+
+    #[test]
+    fn one(){
+        assert_eq!(flatten(std::iter::once(vec!["a", "b", "c"])).count(), 1);
+    }
+
+    #[test]
+    fn two(){
+        assert_ne!(flatten(std::iter::once(vec!["a", "b", "c"])).count(), 2);
+    }
+
+    #[test]
+    fn empty_wide(){
+        assert_eq!(flatten(vec![Vec::<()>::new(), vec![], vec![]].into_iter()).count(), 0);
+    }
+
+}
