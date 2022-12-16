@@ -1,4 +1,5 @@
 mod flatten;
+mod newtypeiterators;
 
 #[cfg(test)]
 mod tests {
