@@ -14,7 +14,7 @@ impl<T> NewType<T> {
     }
 
     pub fn iter_mut(&mut self) -> NewTypeIterMut<T>{
-        NewTypeIterMut { inner: self, default: NewType::from(vec![]), pos: 0 }
+        NewTypeIterMut { inner: self.0.as_mut_slice() }
     }
 }
 
@@ -39,25 +39,20 @@ impl<'a, T> Iterator for NewTyperIter<'a, T> {
 }
 
 pub struct NewTypeIterMut<'b, T> {
-    inner: &'b mut NewType<T>,
-    default: NewType<T>,
-    pos: usize,
+    inner: &'b mut [T]
 }
 
-impl<'b, T> Iterator for NewTypeIterMut<'b, T> {
+impl<'b, T> Iterator for NewTypeIterMut<'b, T>{
     type Item = &'b mut T;
 
     fn next(&mut self) -> Option<Self::Item> {
         
-        let inner_field = std::mem::replace(&mut self.inner, Vec::);
+        let slice = std::mem::replace(&mut self.inner, &mut []);
 
-        if self.pos <= self.inner.0.len() {
-            self.pos += 1;
+        let (first, rem) = slice.split_first_mut()?;
 
-            return inner_field.0.get_mut(self.pos - 1);
-        }
+        self.inner = rem;
 
-        None
-
+        return Some(first);
     }
 }
