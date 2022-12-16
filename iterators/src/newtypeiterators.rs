@@ -1,7 +1,12 @@
-struct NewType<T>(Vec<T>);
+pub struct NewType<T>(Vec<T>);
 
 impl<T> NewType<T> {
-    fn iter(&self) -> NewTyperIter<T> {
+
+    pub fn from(vec: Vec<T>) -> Self {
+        Self(vec)
+    }
+
+    pub fn iter(&self) -> NewTyperIter<T> {
         NewTyperIter {
             inner: self,
             pos: 0,
@@ -9,7 +14,7 @@ impl<T> NewType<T> {
     }
 }
 
-struct NewTyperIter<'a, T> {
+pub struct NewTyperIter<'a, T> {
     inner: &'a NewType<T>,
     pos: usize,
 }

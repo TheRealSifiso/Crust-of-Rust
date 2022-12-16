@@ -2,7 +2,7 @@ mod flatten;
 mod newtypeiterators;
 
 #[cfg(test)]
-mod tests {
+mod flatten_tests {
 
     use std::vec;
 
@@ -67,4 +67,18 @@ mod tests {
         assert_eq!(iter.next(), Some("a3"));
         assert_eq!(iter.next_back(), Some("b1"));
     }
+}
+
+#[cfg(test)]
+mod newtypeiterators_tests {
+
+    use crate::newtypeiterators::NewType;
+
+    #[test]
+    fn newtypeiter(){
+        let collection = NewType::from(vec![1, 2, 3, 4]);
+
+        assert_eq!(collection.iter().collect::<Vec<&i32>>(), vec![&1, &2, &3, &4]);
+    }
+
 }
