@@ -1,13 +1,11 @@
 mod flatten;
 
-use flatten::flatten;
-
 #[cfg(test)]
 mod tests {
 
     use std::vec;
 
-    use crate::flatten;
+    use crate::flatten::flatten;
 
     #[test]
     fn empty() {
