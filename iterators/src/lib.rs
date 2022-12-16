@@ -81,4 +81,11 @@ mod newtypeiterators_tests {
         assert_eq!(collection.iter().collect::<Vec<&i32>>(), vec![&1, &2, &3, &4]);
     }
 
+    #[test]
+    fn newtypeitermut(){
+        let mut collection = NewType::from(vec![1, 2, 3, 4]);
+
+        assert_eq!(collection.iter_mut().collect::<Vec<&mut i32>>(), vec![&mut 1, &mut 2, &mut 3, &mut 4]);
+    }
+
 }
